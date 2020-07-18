@@ -1,7 +1,7 @@
 # Tambola Number Generator
 This is the same code that powers Tambola Fun number generator at https://www.tambolafun.com/board.php
 
-Feel free to modify it and create your own personal Tambola number generator. It's ready to use and we have put everything in a single HTML file so you just need to download a single file and open in your browser.
+Feel free to modify it and create your own personal Tambola number generator. It's ready to use and we have put everything in a single HTML file (tambola-fun.html) so you just need to download a single file and open in your browser.
 
 ## IMPORTANT 
 Code will not work till you replace your own API key for Responsive Voice in the code with yours. Search for **RV_KEY** in the code and replace with your own key. You can generate a free key from their website (https://responsivevoice.org/register/). 
