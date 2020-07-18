@@ -1,0 +1,446 @@
+<!DOCTYPE HTML5>
+<html>
+<head>
+    <title>Tambola Number Generator - Tambola Fun</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style type="text/css">
+        .board {
+            background-color: #D21A42;
+            border: 2px solid #A42C38;
+            position: relative;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .game-controls {
+            border: 2px solid black;
+            position: relative;
+            padding: 5px;
+            text-align: center;
+        }
+        .board-num {
+            border: 2px solid #A42C38;
+            background-color: #E5E5C0;
+            border-radius: 50%;
+            padding: 5px;
+            display: inline-block;
+            margin: 8px 12px;
+            width: 45px;
+            height: 45px;
+            font-size: 24px;
+            font-weight: 800;
+            color: #D21A42;
+            line-height: 30px;
+        }
+        .board-num-small {
+            border: 2px solid #A42C38;
+            background-color: #E5E5C0;
+            border-radius: 50%;
+            padding: 5px;
+            display: inline-block;
+            margin: 8px 8px;
+            width: 45px;
+            height: 45px;
+            font-size: 24px;
+            font-weight: 800;
+            color: #D21A42;
+            line-height: 30px;
+        }
+        @keyframes stretch {
+            0% {
+                transform: scale(.3);
+                background-color: red;
+                border-radius: 100%;
+            }
+            50% {
+                background-color: orange;
+            }
+            100% {
+                transform: scale(1.5);
+                background-color: yellow;
+            }
+        }
+        .selected {
+            background-color: brown;
+            color: lightgrey;
+            animation-name: stretch;
+            animation-duration: 1.5s;
+            animation-timing-function: ease-out;
+            animation-delay: 0s;
+            animation-direction: alternate;
+            animation-iteration-count: 3;
+            animation-fill-mode: none;
+            animation-play-state: running;
+        }
+        .ad-left {
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron py-3">
+            <h1 class="display-4">Tambola Number Generator</h1>
+            <p class="lead"></p>
+            <div class="row">
+                <div class="col-md-3 my-2">
+                    <a class="btn btn-warning btn-block" href="https://www.tambolafun.com/shop.php" role="button" ><i class="fas fa-shopping-cart"></i>&nbsp;Buy Custom Tickets</a>
+                </div>
+                <div class="col-md-3 my-2">
+                    <a class="btn btn-info btn-block" href="https://www.tambolafun.com/custom.php" role="button" ><i class="fas fa-download"></i>&nbsp;Free Tambola Tickets</a>
+                </div>
+                <div class="col-md-3 my-2">
+
+                </div>
+                <div class="col-md-3 text-center my-2">
+                    <a class="" href="https://play.google.com/store/apps/details?id=com.titaapps.tambolafunmp"><img src="https://lh3.googleusercontent.com/cjsqrWQKJQp9RFO7-hJ9AfpKzbUb_Y84vXfjlP0iRHBvladwAfXih984olktDhPnFqyZ0nu9A5jvFwOEQPXzv7hr3ce3QVsLN8kQ2Ao=s0" width="100" alt="Download Tambola Fun Multiplayer on your Android phone" /></a>
+                    <a class="" href="https://apps.apple.com/us/app/tambola-multiplayer/id1516503587"><img src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg" width="100" alt="Download Tambola Multiplayer on your iPhone" /></a>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="game-controls">
+                    <button id="start-btn" type="button" class="btn btn-success btn-block" onclick="javascript:nextNum()"><i class="fas fa-play"></i>&nbsp;Start!</button>
+                    <button type="button" class="btn btn-info btn-block" onclick="javascript:resetGame()"><i class="fas fa-sync"></i>&nbsp;Reset Game</button>
+                    <h6 class="mt-2 mb-2">Previous 5 numbers (left to right)</h6>
+                    <div id="prev-numbers"></div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="board">
+                <div class="board-num" data-id="1">01</div><div class="board-num" data-id="2">02</div><div class="board-num" data-id="3">03</div><div class="board-num" data-id="4">04</div><div class="board-num" data-id="5">05</div><div class="board-num" data-id="6">06</div><div class="board-num" data-id="7">07</div><div class="board-num" data-id="8">08</div><div class="board-num" data-id="9">09</div><div class="board-num" data-id="10">10</div><br><div class="board-num" data-id="11">11</div><div class="board-num" data-id="12">12</div><div class="board-num" data-id="13">13</div><div class="board-num" data-id="14">14</div><div class="board-num" data-id="15">15</div><div class="board-num" data-id="16">16</div><div class="board-num" data-id="17">17</div><div class="board-num" data-id="18">18</div><div class="board-num" data-id="19">19</div><div class="board-num" data-id="20">20</div><br><div class="board-num" data-id="21">21</div><div class="board-num" data-id="22">22</div><div class="board-num" data-id="23">23</div><div class="board-num" data-id="24">24</div><div class="board-num" data-id="25">25</div><div class="board-num" data-id="26">26</div><div class="board-num" data-id="27">27</div><div class="board-num" data-id="28">28</div><div class="board-num" data-id="29">29</div><div class="board-num" data-id="30">30</div><br><div class="board-num" data-id="31">31</div><div class="board-num" data-id="32">32</div><div class="board-num" data-id="33">33</div><div class="board-num" data-id="34">34</div><div class="board-num" data-id="35">35</div><div class="board-num" data-id="36">36</div><div class="board-num" data-id="37">37</div><div class="board-num" data-id="38">38</div><div class="board-num" data-id="39">39</div><div class="board-num" data-id="40">40</div><br><div class="board-num" data-id="41">41</div><div class="board-num" data-id="42">42</div><div class="board-num" data-id="43">43</div><div class="board-num" data-id="44">44</div><div class="board-num" data-id="45">45</div><div class="board-num" data-id="46">46</div><div class="board-num" data-id="47">47</div><div class="board-num" data-id="48">48</div><div class="board-num" data-id="49">49</div><div class="board-num" data-id="50">50</div><br><div class="board-num" data-id="51">51</div><div class="board-num" data-id="52">52</div><div class="board-num" data-id="53">53</div><div class="board-num" data-id="54">54</div><div class="board-num" data-id="55">55</div><div class="board-num" data-id="56">56</div><div class="board-num" data-id="57">57</div><div class="board-num" data-id="58">58</div><div class="board-num" data-id="59">59</div><div class="board-num" data-id="60">60</div><br><div class="board-num" data-id="61">61</div><div class="board-num" data-id="62">62</div><div class="board-num" data-id="63">63</div><div class="board-num" data-id="64">64</div><div class="board-num" data-id="65">65</div><div class="board-num" data-id="66">66</div><div class="board-num" data-id="67">67</div><div class="board-num" data-id="68">68</div><div class="board-num" data-id="69">69</div><div class="board-num" data-id="70">70</div><br><div class="board-num" data-id="71">71</div><div class="board-num" data-id="72">72</div><div class="board-num" data-id="73">73</div><div class="board-num" data-id="74">74</div><div class="board-num" data-id="75">75</div><div class="board-num" data-id="76">76</div><div class="board-num" data-id="77">77</div><div class="board-num" data-id="78">78</div><div class="board-num" data-id="79">79</div><div class="board-num" data-id="80">80</div><br><div class="board-num" data-id="81">81</div><div class="board-num" data-id="82">82</div><div class="board-num" data-id="83">83</div><div class="board-num" data-id="84">84</div><div class="board-num" data-id="85">85</div><div class="board-num" data-id="86">86</div><div class="board-num" data-id="87">87</div><div class="board-num" data-id="88">88</div><div class="board-num" data-id="89">89</div><div class="board-num" data-id="90">90</div><br>        </div>
+            </div>
+        </div>
+        <div class="row my-2 text-center">
+            <div class="col">
+                Powered by <a href="https://www.tambolafun.com" target="_blank">Tambola Tickets</a>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        let responsiveVoice = null; // to avoid errors later if api key isn't provided
+    </script>
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=RV_KEY"></script>
+    <script type="text/javascript">
+        let selected = [];
+        let current = -1;
+        let btnText = document.getElementById('start-btn').innerHTML;
+        let prevNumDiv = document.getElementById('prev-numbers');
+        function nextNum() {
+            if(btnText === '<i class="fas fa-play" aria-hidden="true"></i>&nbsp;Start!') {
+                document.getElementById('start-btn').innerHTML = '<i class="fas fa-play"></i>&nbsp;Next Number';
+            }
+            current = Math.floor((Math.random() * 90) + 1);
+            while(selected.indexOf(current) !== -1) {
+                current = Math.floor((Math.random() * 90) + 1);
+            }
+            selected.push(current);
+            if(responsiveVoice != null && responsiveVoice.voiceSupport()) {
+                speak(current);
+            }
+            let element = document.querySelectorAll("[data-id='" + current + "']");
+            element[0].classList.add("selected");
+            // update previous 5 numbers
+            prevNumDiv.innerHTML = ''; // remove prev and overwrite with new number
+            for(i = 1;i <= 5; i++) {
+                if(selected[selected.length - i] != 'undefined' && selected[selected.length - i] != null) {
+                    prevNumDiv.innerHTML += '<div class="board-num-small">' + selected[selected.length - i] + '</div>';
+                }
+            }
+            if(selected.length >= 90) {
+                responsiveVoice.speak('Game Over!', "Hindi Female", {rate: 0.7});
+                alert('Game Over!');
+            }
+        }
+        function resetGame() {
+            selected = [];
+            let elements = document.querySelectorAll("[data-id]");
+            elements.forEach(function(element) {
+                element.classList.remove("selected");
+            });
+            document.getElementById('start-btn').innerHTML = '<i class="fas fa-play"></i>&nbsp;Start!';
+            prevNumDiv.innerHTML = ''; // clear previous nums
+        }
+        function speak(num) {
+            switch(num) {
+                case 1:
+                responsiveVoice.speak('single number one', "Hindi Female", {rate: 0.7});
+                break;
+                case 2:
+                responsiveVoice.speak('single number two', "Hindi Female", {rate: 0.7});
+                break;
+                case 3:
+                responsiveVoice.speak('single number three', "Hindi Female", {rate: 0.7});
+                break;
+                case 4:
+                responsiveVoice.speak('single number four', "Hindi Female", {rate: 0.7});
+                break;
+                case 5:
+                responsiveVoice.speak('single number five', "Hindi Female", {rate: 0.7});
+                break;
+                case 6:
+                responsiveVoice.speak('single number six', "Hindi Female", {rate: 0.7});
+                break;
+                case 7:
+                responsiveVoice.speak('single number seven', "Hindi Female", {rate: 0.7});
+                break;
+                case 8:
+                responsiveVoice.speak('single number eight', "Hindi Female", {rate: 0.7});
+                break;
+                case 9:
+                responsiveVoice.speak('single number nine', "Hindi Female", {rate: 0.7});
+                break;
+                case 10:
+                responsiveVoice.speak('one zero ten', "Hindi Female", {rate: 0.7});
+                break;
+                case 11:
+                responsiveVoice.speak('one one eleven', "Hindi Female", {rate: 0.7});
+                break;
+                case 12:
+                responsiveVoice.speak('one two twelve', "Hindi Female", {rate: 0.7});
+                break;
+                case 13:
+                responsiveVoice.speak('one three thirteen', "Hindi Female", {rate: 0.7});
+                break;
+                case 14:
+                responsiveVoice.speak('one four fourteen', "Hindi Female", {rate: 0.7});
+                break;
+                case 15:
+                responsiveVoice.speak('one five fifteen', "Hindi Female", {rate: 0.7});
+                break;
+                case 16:
+                responsiveVoice.speak('one six sixteen', "Hindi Female", {rate: 0.7});
+                break;
+                case 17:
+                responsiveVoice.speak('one seven seventeen', "Hindi Female", {rate: 0.7});
+                break;
+                case 18:
+                responsiveVoice.speak('one eight eighteen', "Hindi Female", {rate: 0.7});
+                break;
+                case 19:
+                responsiveVoice.speak('one nine nineteen', "Hindi Female", {rate: 0.7});
+                break;
+                case 20:
+                responsiveVoice.speak('two zero twenty', "Hindi Female", {rate: 0.7});
+                break;
+                case 21:
+                responsiveVoice.speak('two one twenty one', "Hindi Female", {rate: 0.7});
+                break;
+                case 22:
+                responsiveVoice.speak('two two twenty two', "Hindi Female", {rate: 0.7});
+                break;
+                case 23:
+                responsiveVoice.speak('two three twenty three', "Hindi Female", {rate: 0.7});
+                break;
+                case 24:
+                responsiveVoice.speak('two four twenty four', "Hindi Female", {rate: 0.7});
+                break;
+                case 25:
+                responsiveVoice.speak('two five twenty five', "Hindi Female", {rate: 0.7});
+                break;
+                case 26:
+                responsiveVoice.speak('two six twenty six', "Hindi Female", {rate: 0.7});
+                break;
+                case 27:
+                responsiveVoice.speak('two seven twenty seven', "Hindi Female", {rate: 0.7});
+                break;
+                case 28:
+                responsiveVoice.speak('two eight twenty eight', "Hindi Female", {rate: 0.7});
+                break;
+                case 29:
+                responsiveVoice.speak('two nine twenty nine', "Hindi Female", {rate: 0.7});
+                break;
+                case 30:
+                responsiveVoice.speak('three zero thirty', "Hindi Female", {rate: 0.7});
+                break;
+                case 31:
+                responsiveVoice.speak('three one thirty one', "Hindi Female", {rate: 0.7});
+                break;
+                case 32:
+                responsiveVoice.speak('three two thirty two', "Hindi Female", {rate: 0.7});
+                break;
+                case 33:
+                responsiveVoice.speak('three three thirty three', "Hindi Female", {rate: 0.7});
+                break;
+                case 34:
+                responsiveVoice.speak('three four thirty four', "Hindi Female", {rate: 0.7});
+                break;
+                case 35:
+                responsiveVoice.speak('three five thirty five', "Hindi Female", {rate: 0.7});
+                break;
+                case 36:
+                responsiveVoice.speak('three six thirty six', "Hindi Female", {rate: 0.7});
+                break;
+                case 37:
+                responsiveVoice.speak('three seven thirty seven', "Hindi Female", {rate: 0.7});
+                break;
+                case 38:
+                responsiveVoice.speak('three eight thirty eight', "Hindi Female", {rate: 0.7});
+                break;
+                case 39:
+                responsiveVoice.speak('three nine thirty nine', "Hindi Female", {rate: 0.7});
+                break;
+                case 40:
+                responsiveVoice.speak('four zero forty', "Hindi Female", {rate: 0.7});
+                break;
+                case 41:
+                responsiveVoice.speak('four one forty one', "Hindi Female", {rate: 0.7});
+                break;
+                case 42:
+                responsiveVoice.speak('four two forty two', "Hindi Female", {rate: 0.7});
+                break;
+                case 43:
+                responsiveVoice.speak('four three forty three', "Hindi Female", {rate: 0.7});
+                break;
+                case 44:
+                responsiveVoice.speak('four four forty four', "Hindi Female", {rate: 0.7});
+                break;
+                case 45:
+                responsiveVoice.speak('four five forty five', "Hindi Female", {rate: 0.7});
+                break;
+                case 46:
+                responsiveVoice.speak('four six forty six', "Hindi Female", {rate: 0.7});
+                break;
+                case 47:
+                responsiveVoice.speak('four seven forty seven', "Hindi Female", {rate: 0.7});
+                break;
+                case 48:
+                responsiveVoice.speak('four eight forty eight', "Hindi Female", {rate: 0.7});
+                break;
+                case 49:
+                responsiveVoice.speak('four nine forty nine', "Hindi Female", {rate: 0.7});
+                break;
+                case 50:
+                responsiveVoice.speak('five zero fifty', "Hindi Female", {rate: 0.7});
+                break;
+                case 51:
+                responsiveVoice.speak('five one fifty one', "Hindi Female", {rate: 0.7});
+                break;
+                case 52:
+                responsiveVoice.speak('five two fifty two', "Hindi Female", {rate: 0.7});
+                break;
+                case 53:
+                responsiveVoice.speak('five three fifty three', "Hindi Female", {rate: 0.7});
+                break;
+                case 54:
+                responsiveVoice.speak('five four fifty four', "Hindi Female", {rate: 0.7});
+                break;
+                case 55:
+                responsiveVoice.speak('five five fifty five', "Hindi Female", {rate: 0.7});
+                break;
+                case 56:
+                responsiveVoice.speak('five six fifty six', "Hindi Female", {rate: 0.7});
+                break;
+                case 57:
+                responsiveVoice.speak('five seven fifty seven', "Hindi Female", {rate: 0.7});
+                break;
+                case 58:
+                responsiveVoice.speak('five eight fifty eight', "Hindi Female", {rate: 0.7});
+                break;
+                case 59:
+                responsiveVoice.speak('five nine fifty nine', "Hindi Female", {rate: 0.7});
+                break;
+                case 60:
+                responsiveVoice.speak('six zero sixty', "Hindi Female", {rate: 0.7});
+                break;
+                case 61:
+                responsiveVoice.speak('six one sixty one', "Hindi Female", {rate: 0.7});
+                break;
+                case 62:
+                responsiveVoice.speak('six two sixty two', "Hindi Female", {rate: 0.7});
+                break;
+                case 63:
+                responsiveVoice.speak('six three sixty three', "Hindi Female", {rate: 0.7});
+                break;
+                case 64:
+                responsiveVoice.speak('six four sixty four', "Hindi Female", {rate: 0.7});
+                break;
+                case 65:
+                responsiveVoice.speak('six five sixty five', "Hindi Female", {rate: 0.7});
+                break;
+                case 66:
+                responsiveVoice.speak('six six sixty six', "Hindi Female", {rate: 0.7});
+                break;
+                case 67:
+                responsiveVoice.speak('six seven sixty seven', "Hindi Female", {rate: 0.7});
+                break;
+                case 68:
+                responsiveVoice.speak('six eight sixty eight', "Hindi Female", {rate: 0.7});
+                break;
+                case 69:
+                responsiveVoice.speak('six nine sixty nine', "Hindi Female", {rate: 0.7});
+                break;
+                case 70:
+                responsiveVoice.speak('seven zero seventy', "Hindi Female", {rate: 0.7});
+                break;
+                case 71:
+                responsiveVoice.speak('seven one seventy one', "Hindi Female", {rate: 0.7});
+                break;
+                case 72:
+                responsiveVoice.speak('seven two seventy two', "Hindi Female", {rate: 0.7});
+                break;
+                case 73:
+                responsiveVoice.speak('seven three seventy three', "Hindi Female", {rate: 0.7});
+                break;
+                case 74:
+                responsiveVoice.speak('seven four seventy four', "Hindi Female", {rate: 0.7});
+                break;
+                case 75:
+                responsiveVoice.speak('seven five seventy five', "Hindi Female", {rate: 0.7});
+                break;
+                case 76:
+                responsiveVoice.speak('seven six seventy six', "Hindi Female", {rate: 0.7});
+                break;
+                case 77:
+                responsiveVoice.speak('seven seven seventy seven', "Hindi Female", {rate: 0.7});
+                break;
+                case 78:
+                responsiveVoice.speak('seven eight seventy eight', "Hindi Female", {rate: 0.7});
+                break;
+                case 79:
+                responsiveVoice.speak('seven nine seventy nine', "Hindi Female", {rate: 0.7});
+                break;
+                case 80:
+                responsiveVoice.speak('eight zero eighty', "Hindi Female", {rate: 0.7});
+                break;
+                case 81:
+                responsiveVoice.speak('eight one eighty one', "Hindi Female", {rate: 0.7});
+                break;
+                case 82:
+                responsiveVoice.speak('eight two eighty two', "Hindi Female", {rate: 0.7});
+                break;
+                case 83:
+                responsiveVoice.speak('eight three eighty three', "Hindi Female", {rate: 0.7});
+                break;
+                case 84:
+                responsiveVoice.speak('eight four eighty four', "Hindi Female", {rate: 0.7});
+                break;
+                case 85:
+                responsiveVoice.speak('eight five eighty five', "Hindi Female", {rate: 0.7});
+                break;
+                case 86:
+                responsiveVoice.speak('eight six eighty six', "Hindi Female", {rate: 0.7});
+                break;
+                case 87:
+                responsiveVoice.speak('eight seven eighty seven', "Hindi Female", {rate: 0.7});
+                break;
+                case 88:
+                responsiveVoice.speak('eight eight eighty eight', "Hindi Female", {rate: 0.7});
+                break;
+                case 89:
+                responsiveVoice.speak('eight nine eighty nine', "Hindi Female", {rate: 0.7});
+                break;
+                case 90:
+                responsiveVoice.speak('nine zero ninety', "Hindi Female", {rate: 0.7});
+                break;
+            }
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>
